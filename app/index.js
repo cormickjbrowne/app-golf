@@ -1,13 +1,13 @@
 require('dotenv').config();
 
-const Sequelize = require('sequelize');
-const sequelize = new Sequelize(process.env.PG_CONNECTION);
+const express = require('express');
+const enrouten = require('express-enrouten');
 
-sequelize
-    .authenticate()
-    .then(() => {
-        console.log('Connection has been established successfully.');
-    })
-    .catch(err => {
-        console.error('Unable to connect to the database:', err);
-    });
+const PORT = process.env.PORT || 4000;
+const app = express();
+
+app.use(enrouten({
+    directory: 'controllers'
+}));
+
+app.listen(PORT, () => console.log(`listening on port: ${PORT}`));
